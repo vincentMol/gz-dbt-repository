@@ -1,125 +1,173 @@
--version: 2
+version: 2
 
 sources:
   - name: raw
     schema: gz_raw_data
     tables:
-        - name: sales
-          identifier: raw_gz_sales
-          description: sales of Greenweez / we have on row per product_id found in each orders_id
+      - name: sales
+        identifier: raw_gz_sales
+        description: sales of Greenweez / we have one row per product_id found in each order_id
 
-## freshness test
-          loaded_at_field: "CAST(date_date AS TIMESTAMP)"
-          freshness:
-            warn_after: {count: 90, period: day }
-          columns:
-            - name: date_date
-              description: la date de la vente
-            - name: orders_id
-              description: numéro de commande
-            - name: pdt_id
-              description: référence produit
-            - name: revenue
-              description: chiffre d'affaires
-            - name: quantity
-              description: quantité commandée
-          tests:
-            - unique:
-                column_name: "(orders_id || '_' || pdt_id)"
-        - name: product
-          identifier: raw_gz_product
-          description: table des produits en catalogue
-          columns:
-            - name: products_id
-              description: référence du produit
-              tests: 
-                - unique
-                - not_null
-            - name: purchSE_PRICE
-              description: prix d'achat initial
-        - name: ship
-          identifier: raw_gz_ship
-          columns: 
-            - name: orders_id
-              description: numéro de commande
-              tests: 
-                - unique
-                - not_null
-            - name: shipping_fee
-              description: frais fix d'envoie
-            - name: logCost
-              description: coût de la logistique
-            - name: ship_cost
-              description: coût du transport
-        - name: adwords
-          identifier: raw_gz_adwords
-          description: données issues de adwords
-          columns:
-            - name: date_date
-              description: date de génération de la données
-            - name: paid_source
-              description: =adwords
-            - name: campaign_key
-              description: clé primaire
-            - name: camPGN_name
-              description: nom complet de la campagne marketing
-            - name: ads_cost
-              description: coût de la campagne marketing
-            - name: impression
-              description: nombre de personnes qui ont vu la publicité
-            - name: click
-              description: nombre de click sur une publicité donnée
-        - name: bing
-          identifier: raw_gz_bing
-          description: données issues de bing
-          columns:
-            - name: date_date
-              description: date de génération de la données
-            - name: paid_source
-              description: =adwords
-            - name: campaign_key
-              description: clé primaire
-            - name: camPGN_name
-              description: nom complet de la campagne marketing
-            - name: ads_cost
-              description: coût de la campagne marketing
-            - name: impression
-              description: nombre de personnes qui ont vu la publicité
-            - name: click
-              description: nombre de click sur une publicité donnée
-        - name: criteo
-          identifier: raw_gz_criteo
-          description: données issues de criteo
-          columns:
-            - name: date_date
-              description: date de génération de la données
-            - name: paid_source
-              description: =adwords
-            - name: campaign_key
-              description: clé primaire
-            - name: camPGN_name
-              description: nom complet de la campagne marketing
-            - name: ads_cost
-              description: coût de la campagne marketing
-            - name: impression
-              description: nombre de personnes qui ont vu la publicité
-            - name: click
-              description: nombre de click sur une publicité donnée
-        - name: facebook
-          identifier: raw_gz_facebook
-          description: données issues de facebook
-          columns:
-            - name: date_date
-              description: date de génération de la données
-            - name: paid_source
-              description: =adwords
-            - name: campaign_key
-              description: clé primaire
-            - name: camPGN_name
-              description: nom complet de la campagne marketing
-            - name: ads_cost
-              description: coût de la campagne marketing
-            - name: impression
-              description: nombre de personnes qui ont vu la publicité
-            - name: click
-              description: nombre de click sur une publicité donnée
+        # freshness test
+        loaded_at_field: "CAST(date_date AS TIMESTAMP)"
+        freshness:
+          warn_after: {count: 90, period: day}
+        columns:
+          - name: date_date
+            description: la date de la vente
+          - name: orders_id
+            description: numéro de commande
+          - name: pdt_id
+            description: référence produit
+          - name: revenue
+            description: chiffre d'affaires
+          - name: quantity
+            description: quantité commandée
+        tests:
+          - unique:
+              column_name: "(orders_id || '_' || pdt_id)"
+
+      - name: product
+        identifier: raw_gz_product
+        description: table des produits en catalogue
+        columns:
+          - name: products_id
+            description: référence du produit
+            tests: 
+              - unique
+              - not_null
+          - name: purchase_price
+            description: prix d'achat initial
+
+      - name: ship
+        identifier: raw_gz_ship
+        columns: 
+          - name: orders_id
+            description: numéro de commande
+            tests: 
+              - unique
+              - not_null
+          - name: shipping_fee
+            description: frais fix d'envoi
+          - name: log_cost
+            description: coût de la logistique
+          - name: ship_cost
+            description: coût du transport
+
+      - name: adwords
+        identifier: raw_gz_adwords
+        description: données issues de adwords
+        columns:
+          - name: date_date
+            description: date de génération des données
+          - name: paid_source
+            description: source de données = adwords
+          - name: campaign_key
+            description: clé primaire
+          - name: campaign_name
+            description: nom complet de la campagne marketing
+          - name: ads_cost
+            description: coût de la campagne marketing
+          - name: impression
+            description: nombre de personnes ayant vu la publicité
+          - name: click
+            description: nombre de clics sur une publicité donnée
+
+      - name: bing
+        identifier: raw_gz_bing
+        description: données issues de bing
+        columns:
+          - name: date_date
+            description: date de génération des données
+          - name: paid_source
+            description: source de données = bing
+          - name: campaign_key
+            description: clé primaire
+          - name: campaign_name
+            description: nom complet de la campagne marketing
+          - name: ads_cost
+            description: coût de la campagne marketing
+          - name: impression
+            description: nombre de personnes ayant vu la publicité
+          - name: click
+            description: nombre de clics sur une publicité donnée
+
+      - name: criteo
+        identifier: raw_gz_criteo
+        description: données issues de criteo
+        columns:
+          - name: date_date
+            description: date de génération des données
+          - name: paid_source
+            description: source de données = criteo
+          - name: campaign_key
+            description: clé primaire
+          - name: campaign_name
+            description: nom complet de la campagne marketing
+          - name: ads_cost
+            description: coût de la campagne marketing
+          - name: impression
+            description: nombre de personnes ayant vu la publicité
+          - name: click
+            description: nombre de clics sur une publicité donnée
+
+      - name: facebook
+        identifier: raw_gz_facebook
+        description: données issues de facebook
+        columns:
+          - name: date_date
+            description: date de génération des données
+          - name: paid_source
+            description: source de données = facebook
+          - name: campaign_key
+            description: clé primaire
+          - name: campaign_name
+            description: nom complet de la campagne marketing
+          - name: ads_cost
+            description: coût de la campagne marketing
+          - name: impression
+            description: nombre de personnes ayant vu la publicité
+          - name: click
+            description: nombre de clics sur une publicité donnée
+models:
+    - name: int_campaigns
+      description: union de toutes les tables (adwords, bing, criteo, facebook)
+      columns:
+        - name: date_date
+          description: date de génération des données
+        - name: paid_source
+          description: source des données parmi les canaux d'acquisition
+        - name: campaign_key
+          description: référence de la campagne marketing
+        - name: campaign_name
+          description: nom complet de la campagne marketing
+        - name: ads_cost
+          description: coût de la campagne marketing
+        - name: impression
+          description: nombre de personnes ayant vu la publicité
+        - name: click
+          description: nombre de clics sur une publicité donnée
+      tests:
+        - unique:
+            column_name: "(date_date || '_' || campaign_key)"
+
+    - name: int_campaigns_days
+      description: somme des métriques (ads_cost, impressions, clics)
+      columns:
+        - name: date_date
+          description: date de génération des données
+        - name: paid_source
+          description: source des données parmi les canaux d'acquisition
+        - name: campaign_key
+          description: référence de la campagne marketing
+        - name: campaign_name
+          description: nom complet de la campagne marketing
+        - name: ads_cost
+          description: coût de la campagne marketing
+        - name: impression
+          description: nombre de personnes ayant vu la publicité
+        - name: click
+          description: nombre de clics sur une publicité donnée
+      tests:
+        - unique:
+            column_name: "(date_date || '_' || campaign_key)"
