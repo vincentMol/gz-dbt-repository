@@ -21,7 +21,7 @@ renamed as (
 
 )
 
-select 
+select *
 
 
 
