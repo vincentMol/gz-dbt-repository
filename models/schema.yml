@@ -51,3 +51,75 @@ sources:
               description: coût de la logistique
             - name: ship_cost
               description: coût du transport
+        - name: adwords
+          identifier: raw_gz_adwords
+          description: données issues de adwords
+          columns:
+            - name: date_date
+              description: date de génération de la données
+            - name: paid_source
+              description: =adwords
+            - name: campaign_key
+              description: clé primaire
+            - name: camPGN_name
+              description: nom complet de la campagne marketing
+            - name: ads_cost
+              description: coût de la campagne marketing
+            - name: impression
+              description: nombre de personnes qui ont vu la publicité
+            - name: click
+              description: nombre de click sur une publicité donnée
+        - name: bing
+          identifier: raw_gz_bing
+          description: données issues de bing
+          columns:
+            - name: date_date
+              description: date de génération de la données
+            - name: paid_source
+              description: =adwords
+            - name: campaign_key
+              description: clé primaire
+            - name: camPGN_name
+              description: nom complet de la campagne marketing
+            - name: ads_cost
+              description: coût de la campagne marketing
+            - name: impression
+              description: nombre de personnes qui ont vu la publicité
+            - name: click
+              description: nombre de click sur une publicité donnée
+        - name: criteo
+          identifier: raw_gz_criteo
+          description: données issues de criteo
+          columns:
+            - name: date_date
+              description: date de génération de la données
+            - name: paid_source
+              description: =adwords
+            - name: campaign_key
+              description: clé primaire
+            - name: camPGN_name
+              description: nom complet de la campagne marketing
+            - name: ads_cost
+              description: coût de la campagne marketing
+            - name: impression
+              description: nombre de personnes qui ont vu la publicité
+            - name: click
+              description: nombre de click sur une publicité donnée
+        - name: facebook
+          identifier: raw_gz_facebook
+          description: données issues de facebook
+          columns:
+            - name: date_date
+              description: date de génération de la données
+            - name: paid_source
+              description: =adwords
+            - name: campaign_key
+              description: clé primaire
+            - name: camPGN_name
+              description: nom complet de la campagne marketing
+            - name: ads_cost
+              description: coût de la campagne marketing
+            - name: impression
+              description: nombre de personnes qui ont vu la publicité
+            - name: click
+              description: nombre de click sur une publicité donnée
